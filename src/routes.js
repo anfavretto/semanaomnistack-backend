@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 const ongController = require('./controllers/OngController');
+const incidentsController = require('./controllers/IncidentController');
 /* TIPOS DE PARÂMETROS
  * Query: parâmetros nomeados enviados na rota após o ?. Geralmente servem para filtros, paginação ?nome=valor -> pego no objeto request.query
  * Route: parâmetros utilizados para identificar recursos. /:id -> buscar pelo id -> request.params
@@ -8,7 +9,9 @@ const ongController = require('./controllers/OngController');
 */
 
 routes.get('/ongs', ongController.index);
-
 routes.post('/ongs', ongController.create);
+
+routes.get('/incidents', incidentsController.index);
+routes.post('/incidents', incidentsController.create);
 
 module.exports = routes;
