@@ -5,9 +5,10 @@ module.exports = {
     const { page = 1 } = request.query;
     const numberOfIncidentsByPage = 5;
     const incidents = await connection('incidents')
+    .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
     .limit(numberOfIncidentsByPage)
     .offset((page - 1) * numberOfIncidentsByPage)
-    .select('*');
+    .select(['incidents.*', 'ongs.name', 'ongs.email', 'ongs.whatsapp', 'ongs.city', 'ongs.uf']);
 
     const [count] = await connection('incidents').count();
     response.header('X-Total-Count', count['count(*)']);
